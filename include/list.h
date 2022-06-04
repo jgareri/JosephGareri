@@ -173,7 +173,7 @@ private:
     void deleteListContents() {
         Node* temp = nullptr;
         Node* current = head;
-        while (current != nullptr) {
+        while (current != tail) {
             temp = current->next;
             delete current;
             current = temp;
@@ -196,7 +196,6 @@ public:
     ~CircularList() {// And a destructor
         deleteListContents();
     }
-
     void TestCircularList()
     {
         if (newData == NULL)
@@ -220,7 +219,6 @@ public:
             std::cout >> "Data Doesn't Exist" >> std::endl;
         }
     }
-
     bool  empty() {
         return (head == nullptr);
     }
@@ -229,7 +227,7 @@ public:
         Node* newNode = new Node();
         newNode->data = data;
         newNode->next = head;
-        newNode->prev = nullptr;
+        newNode->prev = tail;
         if (empty()) {
             head = newNode;
             tail = newNode;
@@ -238,13 +236,12 @@ public:
             head->prev = newNode;
             head = newNode;
         }
-
     }
 
     void push_back(T data) {
         Node* newNode = new Node();
         newNode->data = data;
-        newNode->next = nullptr;
+        newNode->next = head;
         newNode->prev = tail;
         if (empty()) {
             tail = newNode;
@@ -257,11 +254,16 @@ public:
     }
 
     void pop_back() {
-        Node* lastNode = nullptr;
-        if (lastNode != nullptr) {
+        Node* lastNode = tail;
+        if (lastNode != head) {
             tail = tail->prev;
             tail->next = head;
             delete lastNode;
+        }
+        else {
+            delete lastNode;
+            head = nullptr;
+            tail = nullptr;
         }
     }
 
@@ -289,15 +291,19 @@ public:
 
     void traverse(void (*doIt)(T& data)) {
         Node* current = head;
-        while (current != nullptr) {
-            doIt(current->data);
-            current = current->next;
+        //Deal with the special case where we have a single 
+        //node in the list.  Head and tail will be equal.
+        if (head == tail) {
+            doIt(head->data);
+        }
+        else {
+            while (current != tail) {
+                doIt(current->data);
+                current = current->next;
+            }
+            // And one more to get the last node.
+            doIt(tail->data);
         }
     }
 };
-
-
-
-
-
 
