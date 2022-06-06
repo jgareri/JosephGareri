@@ -18,5 +18,5 @@ file(GLOB all_SRCS
   )
 
 #add the executable
-add_executable(assignment01 ${all_SRCS})
+add_executable(assignment01 ${all_SRCS} "source/array.cpp")
 
