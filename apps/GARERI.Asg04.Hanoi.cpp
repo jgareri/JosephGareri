@@ -72,25 +72,25 @@ void iterateDisks(int numDisks, int fromPeg, int toPeg, int tempPeg)
 int main()
 {
 	ofstream outfile("Time_Data.txt"); //time data push to file is for convenience
-	const int numDisks = 30;
+	const int numDisks = 25;
 	const int fromPeg = 1;
 	const int toPeg = 3;
 	const int tempPeg = 2;
 	cout << "First we move disks using recursion: " << endl;
 
-	auto start = std::chrono::high_resolution_clock::now();
+	auto start = std::chrono::steady_clock::now();
 	recursiveDisks(numDisks, fromPeg, toPeg, tempPeg);
-	auto end = std::chrono::high_resolution_clock::now();
+	auto end = std::chrono::steady_clock::now();
 	std::chrono::duration<double> elapsed_seconds = end - start;
 	std::cout << " with elapsed time: " << elapsed_seconds.count() << "s\n";
 
 	cout << "All the pegs are moved!" << endl << endl;
 
 	cout << "Then we move disks using iteration: " << endl;
-	auto start2 = std::chrono::high_resolution_clock::now();
+	auto start2 = std::chrono::steady_clock::now();
 	iterateDisks(numDisks, fromPeg, toPeg, tempPeg);
-	auto end2 = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsed_seconds2 = end - start;
+	auto end2 = std::chrono::steady_clock::now();
+	std::chrono::duration<double> elapsed_seconds2 = end2 - start2;
 	std::cout << " with elapsed time: " << elapsed_seconds2.count() << "s\n";
 	cout << "All pegs are moved again." << endl;
 
