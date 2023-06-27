@@ -14,7 +14,7 @@ I am Joseph Gareri, and I am currently pursuing a Bachelors in Computer Science 
 ## Projects
 
 Both projects are OpenAI API integrations. One project is built on discord.js and used in a Discord server that I own. The other is using Streamer.bot to communicate with Twitch API. Streamer.bot can be found at 
-https://streamer.bot/
+https://streamer.bot/. Both projects were built from examples found on the internet.
 
 ## Skills
 
