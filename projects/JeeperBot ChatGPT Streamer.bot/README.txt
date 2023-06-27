@@ -1,0 +1,1 @@
+Code requires Streamerbot backend libraries and classes to compile
