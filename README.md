@@ -17,7 +17,7 @@ Projects are OpenAI API integrations. Project is built on discord.js and used in
 
 ## Skills
 
-Proficient in Visual Studio and C++. However, my projects are in JavaScript and C# because I am self-learning in those languages. My C++ projects can be found in the Data Structures folder.
+Proficient in Visual Studio and C++. However, my projects are in JavaScript because I am self-learning in that language. My C++ projects can be found in the Data Structures folder.
 
 ## Coursework
 
