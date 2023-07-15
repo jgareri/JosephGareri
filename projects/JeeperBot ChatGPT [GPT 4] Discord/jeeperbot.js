@@ -45,6 +45,10 @@ client.once('ready', () =>
     console.log('Ready');
     console.log('JeeperBot is Online!');
     client.user.setActivity('for @JeeperBot',  {type: ActivityType.Watching} );
+    if (fs.existsSync('messages.json')){
+        let messagesData = fs.readFileSync('messages.json');
+        messages = JSON.parse(messagesData);
+    }
 });
 
 // client.on('interactionCreate', async interaction => 
@@ -60,17 +64,42 @@ client.once('ready', () =>
 //     }
 
 // });
-var defaultMessages = [{'role': "system", 'content': "You are JeeperBot. You are a friendly, sarcastic and funny A.I. assistant to the Gary's Gaming Organization Discord. Your creator is JeeperGary."}]
-var messages = defaultMessages
+var defaultMessages = [{'role': "system", 'content': "You are JeeperBot. You are a friendly, sarcastic and funny A.I. assistant to the Gary's Gaming Organization Discord. The Discord mods are AmberOxx, joey1414, bu8bles, Cube, ShadowGary, Lovejoy, and Tantalum8516. The Queen of the mods is bu8bles. Your creator is JeeperGary. JeeperGary's Twitch URL is https://www.twitch.tv/jeepergary"}]
+var messages = defaultMessages;
+//fs.appendFileSync('messages.json', JSON.stringify(messages,null,2));
+if (fs.existsSync('messages.json') && fs.readFileSync('messages.json') != '') {
+    let rawData = fs.readFileSync('messages.json');
+    messages = JSON.parse(rawData);
+} else {
+    messages = defaultMessages;
+    fs.writeFileSync('messages.json', JSON.stringify(messages,null,2));
+}
 client.on('messageCreate', async function(message)
 {
     txt = message.content.replace(/[\\$'"]/g, "\\$&")
-    
-    if (message.author.bot) return;
+    const authorRole = message.author.id === '1007687409300946954' ? 'system' : 'user';
+    const loggedMessage = {'role': authorRole, 'content': txt, 'userId': message.author.id};
+   // const apiMessage = [{'role': authorRole, 'content': txt}];
+
+
+    messages.push(loggedMessage);
+    fs.writeFileSync('messages.json', JSON.stringify(messages,null,2));
 
     const botMention = message.mentions.users.find(user => user.id === '1007687409300946954');
     console.log(message.content, botMention);
+    
+    if (message.author.bot) return;
+    
+   //const botMention = message.mentions.users.find(user => user.id === '1007687409300946954');
+    console.log(message.content, botMention);
      if (!botMention) return;
+     messages.forEach((message, index) => {
+        if (!message.role) {
+            console.error(`Message at index ${index} does not have a 'role' property`, message);
+        }
+     });
+     const messagesToOpenAI = messages.map(({role, content}) => ({role, content}));
+     
 
      //const input = message.content.replace('<@!${client.user.id}>', '').trim();
 
@@ -80,10 +109,11 @@ client.on('messageCreate', async function(message)
        // role: 'user',
        // content: message.content,
     // })
-    messages.push({'role':'user','content': txt})
+   // messages.push({'role':'user','content': txt})
+    //fs.writeFileSync('messages.json', JSON.stringify(messages,null,2));
      const response = await openai.createChatCompletion({
         'model': "gpt-4",
-        'messages': messages,
+        'messages': messagesToOpenAI,
         //prompt: message.content,
         'temperature': 1,
         'n': 1,
@@ -92,11 +122,26 @@ client.on('messageCreate', async function(message)
         stop: ["JeeperBot:"],
      });
 
+   
      //const output = response.data.choices[0].text;
-     console.log(response.data.choices[0].message);
-     message.reply(response.data.choices[0].message);
+     //console.log(response.data.choices[0].message);
+     //message.reply(response.data.choices[0].message);
+     const botMessage = response.data.choices[0].message;
+     const botResponseContent = botMessage.content.replace(/<@1007687409300946954>/g, ''); 
+     const botResponse = {'role': 'assistant', 'content': botResponseContent};
+     //console.log(botMessage);
+
+     fs.writeFileSync('messages.json', JSON.stringify(messages,null,2));
+
+    message.reply(botResponseContent);
+
+     //var botMessageContent = botMessage.content.replace(/<@1007687409300946954>/g, ''); // remove bot mention 
+
+   // messages.push({'role':"system",'content':botMessageContent});
+    //message.reply(botMessageContent);
+   // fs.writeFileSync('messages.json',JSON.stringify(messages,null,2));
      return;
-    console.log(response.content);
+    console.log(botResponseContent);
 });
 
 
