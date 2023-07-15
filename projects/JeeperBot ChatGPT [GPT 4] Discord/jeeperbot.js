@@ -78,7 +78,7 @@ client.on('messageCreate', async function(message)
 {
     txt = message.content.replace(/[\\$'"]/g, "\\$&")
     const authorRole = message.author.id === '1007687409300946954' ? 'system' : 'user';
-    const loggedMessage = {'role': authorRole, 'content': txt, 'userId': message.author.id};
+    const loggedMessage = {'role': authorRole, 'content': txt, 'userId': message.author.id, 'username': message.author.username};
    // const apiMessage = [{'role': authorRole, 'content': txt}];
 
 
