@@ -21,7 +21,7 @@ Proficient in Visual Studio and C++. However, my projects are in JavaScript beca
 
 ## Coursework
 
-As discussed above, this folder contains my various assignments and projects in my Data Structures course.
+As discussed above, this folder contains my various assignments and projects in my college courses.
 
 ## Contact
 
