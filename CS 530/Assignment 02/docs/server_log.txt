@@ -1,0 +1,3 @@
+2024-09-05 20:34:17.617570 - Client 5 registered with address ('127.0.0.1', 54102)
+2024-09-05 20:34:21.377982 - Sent to client 5: Timestamp: 2024-09-05 20:34:21
+2024-09-05 20:34:35.621768 - Client 5 unregistered
