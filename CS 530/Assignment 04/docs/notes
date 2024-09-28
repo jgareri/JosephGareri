@@ -1,0 +1,14 @@
+Part 2:
+
+The -aes256 flag indicates that the generated private key should be encrypted using the AES algorithm with a 256-bit key size.
+
+The private key is a confidential key that is used for decrypting data encrypted with the corresponding public key and for creating digital signatures. Conversely, the public key can be freely distributed and is used to encrypt data that only the private key can decrypt.
+____________________________________________________________________________
+Part 3:
+
+A self-signed certificate is a type of SSL/TLS certificate that is signed by the entity creating it rather than a trusted Certificate Authority. Its primary purpose is to enable encryption and establish a secure communication channel. For instance, a self-signed certificated might be used to secure a test server. 
+____________________________________________________________________________
+Part 4:
+
+The decrypted file should match the original message, because in the process of encryption and decryption, the encryption algorithm ensures that the data once encrypted and then decrypted with the appropriate key should returns to its original form.
+
