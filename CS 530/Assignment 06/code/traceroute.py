@@ -1,3 +1,9 @@
+# traceroute.py
+# Joseph Gareri
+# 00099183
+# jgareri@my.athens.edu
+# Asg 06
+
 import argparse
 from scapy.all import traceroute
 
